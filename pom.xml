@@ -34,7 +34,7 @@
         <snapshotRepository>
             <id>snapshots</id>
             <name>repo-artifactory-0-snapshots</name>
-            <url>${env.MAVEN_REPO_URL}/libs-snapshots-local</url>
+            <url>${env.MAVEN_REPO_URL}/libs-snapshot-local</url>
         </snapshotRepository>
     </distributionManagement>
 
