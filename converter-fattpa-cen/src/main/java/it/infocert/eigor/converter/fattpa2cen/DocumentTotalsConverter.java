@@ -22,8 +22,6 @@ import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -37,7 +35,7 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
 
         if (aUtil == null) {
             Preconditions.checkArgument(eigorConfiguration != null, "Please provide a not null configuration.");
-            aUtil = new AttachmentUtil(new File(eigorConfiguration.getMandatoryString("eigor.workdir")));
+            aUtil = new AttachmentUtil(eigorConfiguration.getMandatoryFile("eigor.workdir"));
         }
         addInvoiceTotalAmountVat(invoice, document, errors, callingLocation);
         addInvoiceTotalAmountWithVatDefault(invoice, document, errors, callingLocation);
@@ -50,7 +48,7 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
         Element rootElement = document.getRootElement();
         Element fatturaElettronicaBody = rootElement.getChild("FatturaElettronicaBody");
         Element fatturaElettronicaHeader = rootElement.getChild("FatturaElettronicaHeader");
-        if(fatturaElettronicaHeader!=null){
+        if (fatturaElettronicaHeader != null) {
             Element datiTrasmissione = fatturaElettronicaHeader.getChild("DatiTrasmissione");
 
             if (datiTrasmissione != null) {
@@ -69,7 +67,7 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
 
                         }
                     }
-                } catch (IllegalArgumentException  e) {
+                } catch (IllegalArgumentException e) {
                     EigorRuntimeException ere = new EigorRuntimeException(
                             e,
                             ErrorMessage.builder()
@@ -92,7 +90,7 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
                     }
 
 
-                } catch (IllegalArgumentException  e) {
+                } catch (IllegalArgumentException e) {
                     EigorRuntimeException ere = new EigorRuntimeException(
                             e,
                             ErrorMessage.builder()
@@ -213,7 +211,7 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
                             }
                         }
                     }
-                }catch (IllegalArgumentException e) {
+                } catch (IllegalArgumentException e) {
                     EigorRuntimeException ere = new EigorRuntimeException(
                             e,
                             ErrorMessage.builder()
@@ -236,7 +234,7 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
         //			<AliquotaRitenuta>20.00</AliquotaRitenuta>
         //			<CausalePagamento>A</CausalePagamento>
         //		</DatiRitenuta>
-        if(fatturaElettronicaBody!=null) {
+        if (fatturaElettronicaBody != null) {
             Element datiGenerali = fatturaElettronicaBody.getChild("DatiGenerali");
             if (datiGenerali != null) {
                 Element datiGeneraliDocumento = datiGenerali.getChild("DatiGeneraliDocumento");
@@ -293,12 +291,12 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
             }
         }
         //SoggettoEmittente
-        if(fatturaElettronicaHeader!=null){
+        if (fatturaElettronicaHeader != null) {
             Element soggettoEmittente = fatturaElettronicaHeader.getChild("SoggettoEmittente");
             if (soggettoEmittente != null) {
                 try {
                     aUtil.addValuesToAttachment(invoice, "1.6 SoggettoEmittente: " + soggettoEmittente.getText(), errors);
-                } catch (IllegalArgumentException  e) {
+                } catch (IllegalArgumentException e) {
                     EigorRuntimeException ere = new EigorRuntimeException(
                             e,
                             ErrorMessage.builder()
@@ -318,7 +316,7 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
         //			<ImportoRitenuta>200.00</ImportoRitenuta><!-- optional to BT-113 with text on BT-20-->
         //			<AliquotaRitenuta>20.00</AliquotaRitenuta>
         //			<CausalePagamento>A</CausalePagamento>
-        if(fatturaElettronicaBody!=null) {
+        if (fatturaElettronicaBody != null) {
             Element datiGenerali = fatturaElettronicaBody.getChild("DatiGenerali");
             if (datiGenerali != null) {
                 Element datiGeneraliDocumento = datiGenerali.getChild("DatiGeneraliDocumento");
@@ -329,7 +327,7 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
                         if (tipoRitenuta != null) {
                             try {
                                 aUtil.addValuesToAttachment(invoice, "2.1.1.5.1 TipoRitenuta: " + tipoRitenuta.getText(), errors);
-                            } catch (IllegalArgumentException  e) {
+                            } catch (IllegalArgumentException e) {
                                 EigorRuntimeException ere = new EigorRuntimeException(
                                         e,
                                         ErrorMessage.builder()
@@ -347,7 +345,7 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
                         if (importoRitenuta != null) {
                             try {
                                 aUtil.addValuesToAttachment(invoice, "2.1.1.5.2 ImportoRitenuta: " + importoRitenuta.getText(), errors);
-                            } catch (IllegalArgumentException  e) {
+                            } catch (IllegalArgumentException e) {
                                 EigorRuntimeException ere = new EigorRuntimeException(
                                         e,
                                         ErrorMessage.builder()
@@ -383,7 +381,7 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
                         if (causalePagamento != null) {
                             try {
                                 aUtil.addValuesToAttachment(invoice, "2.1.1.5.4 CausalePagamento: " + causalePagamento.getText(), errors);
-                            } catch (IllegalArgumentException  e) {
+                            } catch (IllegalArgumentException e) {
                                 EigorRuntimeException ere = new EigorRuntimeException(
                                         e,
                                         ErrorMessage.builder()
@@ -406,7 +404,7 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
                         if (ritenuta != null) {
                             try {
                                 aUtil.addValuesToAttachment(invoice, "2.1.1.7.6 Ritenuta: " + ritenuta.getText(), errors);
-                            } catch (IllegalArgumentException  e) {
+                            } catch (IllegalArgumentException e) {
                                 EigorRuntimeException ere = new EigorRuntimeException(
                                         e,
                                         ErrorMessage.builder()
@@ -442,7 +440,7 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
                         if (numeroLinea != null) {
                             try {
                                 aUtil.addValuesToAttachment(invoice, "2.2.1.13 Ritenuta: " + ritenuta.getText() + " 2.2.1.1 NumeroLinea: " + numeroLinea.getText(), errors);
-                            } catch (IllegalArgumentException  e) {
+                            } catch (IllegalArgumentException e) {
                                 EigorRuntimeException ere = new EigorRuntimeException(
                                         e,
                                         ErrorMessage.builder()
@@ -451,7 +449,7 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
                                                 .action(ErrorCode.Action.HARDCODED_MAP)
                                                 .error(ErrorCode.Error.ILLEGAL_VALUE)
                                                 .addParam(ErrorMessage.SOURCEMSG_PARAM, e.getMessage())
-                                                .addParam(ErrorMessage.OFFENDINGITEM_PARAM, ritenuta.toString()+numeroLinea.toString())
+                                                .addParam(ErrorMessage.OFFENDINGITEM_PARAM, ritenuta.toString() + numeroLinea.toString())
                                                 .build());
                                 errors.add(ConversionIssue.newError(ere));
                             }
@@ -479,7 +477,7 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
                         if (codiceCIG != null) {
                             aUtil.addValuesToAttachment(invoice, "2.1.2.7 CodiceCIG: " + codiceCIG.getText(), errors);
                         }
-                    } catch (IllegalArgumentException  e) {
+                    } catch (IllegalArgumentException e) {
                         EigorRuntimeException ere = new EigorRuntimeException(
                                 e,
                                 ErrorMessage.builder()
@@ -496,6 +494,7 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
             }
         }// if fatturaelettronicabody
     }
+
     private void addInvoiceTotalAmountVat(BG0000Invoice invoice, Document document, List<IConversionIssue> errors, ErrorCode.Location callingLocation) {
 
         Element rootElement = document.getRootElement();
@@ -526,12 +525,10 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
 
 
                         BigDecimal impostaD = new BigDecimal(imposta.getValue());
-                        totaleImposta=totaleImposta.add(new BigDecimal(imposta.getValue()));
+                        totaleImposta = totaleImposta.add(new BigDecimal(imposta.getValue()));
                     }
                 }
                 //END Fix 325
-
-
 
 
                 List<BT0110InvoiceTotalVatAmount> invoiceTotalVatAmountList = totals.getBT0110InvoiceTotalVatAmount();
@@ -545,14 +542,10 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
     }
 
 
-
-
     private void addInvoiceTotalAmountWithVatDefault(BG0000Invoice invoice, Document document, List<IConversionIssue> errors, ErrorCode.Location callingLocation) {
 
         Element rootElement = document.getRootElement();
         Element fatturaElettronicaBody = rootElement.getChild("FatturaElettronicaBody");
-
-
 
 
         if (fatturaElettronicaBody != null) {
@@ -563,7 +556,6 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
             } else {
                 totals = invoice.getBG0022DocumentTotals(0);
             }
-
 
 
             Element datiGenerali = fatturaElettronicaBody.getChild("DatiGenerali");
@@ -578,7 +570,6 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
                         if (importoTotaleDocumento == null) {
                             final Element datiBeniServizi = fatturaElettronicaBody.getChild("DatiBeniServizi");
                             if (datiBeniServizi != null) {
-
 
 
                                 final Element datiRiepilogo = datiBeniServizi.getChild("DatiRiepilogo");
@@ -597,12 +588,6 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
                                     final BigDecimal impostaD = imposta.transform(function).or(BigDecimal.ZERO);
 
 
-
-
-
-
-
-
                                     amountsWithVat.add(new BT0112InvoiceTotalAmountWithVat(imponibileD.add(impostaD)));
                                 }
                             }
@@ -610,7 +595,6 @@ public class DocumentTotalsConverter implements CustomMapping<Document> {
                             log.error("ImportoTotaleDocumento [BT-112] isn't present but ImponibileImporto [BT-109] and Imposta [BT-110] (used to calculate the default value)" +
                                     "are missing too.");
                         }
-
 
 
                         Element datiBollo = datiGeneraliDocumento.getChild("DatiBollo");

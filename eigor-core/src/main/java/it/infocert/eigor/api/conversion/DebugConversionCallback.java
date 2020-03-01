@@ -32,10 +32,8 @@ import static it.infocert.eigor.api.utils.ConversionIssueUtils.toCsv;
 public class DebugConversionCallback extends AbstractConversionCallback {
 
     private final static Logger log = LoggerFactory.getLogger(DebugConversionCallback.class);
-    public static final Charset ENCODING = checkNotNull(Charset.forName("UTF-8"));
+    public static final Charset ENCODING = checkNotNull(StandardCharsets.UTF_8);
     private final File outputFolderFile;
-    private LogSupport logSupport = null;
-    private final boolean enableLog = true;
 
     public DebugConversionCallback(File outputFolderFile) {
         this.outputFolderFile = outputFolderFile;
@@ -45,12 +43,7 @@ public class DebugConversionCallback extends AbstractConversionCallback {
     public void onStartingConversion(ConversionContext ctx) throws Exception {
 
         // attach the logging for this conversion
-        if (enableLog) {
-            logSupport = new LogSupport();
-            if (logSupport.isLogbackSupportActive()) {
-                logSupport.addLogger(new File(outputFolderFile, "invoice-transformation.log"));
-            }
-        }
+
         cloneSourceInvoice(ctx.getInvoiceInSourceFormat(), outputFolderFile, ctx.getSourceInvoiceFileName());
     }
 
@@ -80,12 +73,6 @@ public class DebugConversionCallback extends AbstractConversionCallback {
 
     @Override
     public void onTerminatedConversion(ConversionContext ctx) throws Exception {
-        if (logSupport != null) {
-            try {
-                logSupport.removeLogger();
-            } catch (IllegalArgumentException ignored) {
-            } //Not yet added exception
-        }
     }
 
     private void cloneSourceInvoice(Path invoiceFile, File outputFolder) throws IOException {

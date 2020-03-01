@@ -91,11 +91,11 @@ public class AttachmentUtil {
             }
 
         } else {
-            File dest = new File(workdir + File.separator + "tmp");
+            File dest = new File(workdir, "tmp");
             if (!dest.exists()) {
                 dest.mkdirs();
             }
-            File file = new File(String.format("%s%s%s%s.tmp", dest.getAbsolutePath(), File.separator, NOT_MAPPED_FILENAME, UUID.randomUUID()));
+            File file = new File(dest, String.format("%s%s.tmp", NOT_MAPPED_FILENAME, UUID.randomUUID()));
 
             try {
                 appendToFileInBase64(file, input);

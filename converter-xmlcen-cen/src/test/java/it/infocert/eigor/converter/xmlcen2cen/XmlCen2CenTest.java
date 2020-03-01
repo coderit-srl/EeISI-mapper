@@ -44,7 +44,7 @@ public class XmlCen2CenTest {
             FileUtils.copyInputStreamToFile(
                     XmlCen2CenTest.class.getResourceAsStream("/converterdata/converter-commons/xmlcen/xsdstatic/semanticCEN0.0.3.xsd"),
                     xsdFile);
-            properties.put("eigor.converter.xmlcen-cen.xsd", "file:///" + xsdFile.getAbsolutePath());
+            properties.put("eigor.converter.xmlcen-cen.xsd", "file:" + xsdFile.getAbsolutePath());
         }
 
         {
@@ -52,7 +52,7 @@ public class XmlCen2CenTest {
             FileUtils.copyInputStreamToFile(
                     XmlCen2CenTest.class.getResourceAsStream("/converterdata/converter-commons/xmlcen/schematron-xslt/EN16931-CEN-Model-and-CodeList.xslt"),
                     file);
-            properties.put("eigor.converter.xmlcen-cen.schematron", "file:///" + file.getAbsolutePath());
+            properties.put("eigor.converter.xmlcen-cen.schematron", "file:" + file.getAbsolutePath());
             properties.put("eigor.converter.xmlcen-cen.schematron.auto-update-xslt", "false");
         }
 
@@ -61,7 +61,7 @@ public class XmlCen2CenTest {
             FileUtils.copyInputStreamToFile(
                     XmlCen2CenTest.class.getResourceAsStream("/converterdata/converter-xmlcen-cen/mappings/one_to_one.properties"),
                     file);
-            properties.put("eigor.converter.xmlcen-cen.mapping.one-to-one", "file:///" + file.getAbsolutePath());
+            properties.put("eigor.converter.xmlcen-cen.mapping.one-to-one", "file:" + file.getAbsolutePath());
         }
 
         //eigor.converter.fatturapa-cen.mapping.custom=classpath:converterdata/converter-xmlcen-cen/mappings/custom.conf
@@ -70,7 +70,7 @@ public class XmlCen2CenTest {
             FileUtils.copyInputStreamToFile(
                     XmlCen2CenTest.class.getResourceAsStream("/converterdata/converter-xmlcen-cen/mappings/custom.conf"),
                     file);
-            properties.put("eigor.converter.xmlcen-cen.mapping.custom", "file:///" + file.getAbsolutePath());
+            properties.put("eigor.converter.xmlcen-cen.mapping.custom", "file:" + file.getAbsolutePath());
         }
 
         //eigor.converter.fatturapa-cen.mapping.one-to-many=classpath:converterdata/converter-xmlcen-cen/mappings/one_to_many.properties
@@ -79,7 +79,7 @@ public class XmlCen2CenTest {
             FileUtils.copyInputStreamToFile(
                     XmlCen2CenTest.class.getResourceAsStream("/converterdata/converter-xmlcen-cen/mappings/one_to_many.properties"),
                     file);
-            properties.put("eigor.converter.xmlcen-cen.mapping.one-to-many", "file:///" + file.getAbsolutePath());
+            properties.put("eigor.converter.xmlcen-cen.mapping.one-to-many", "file:" + file.getAbsolutePath());
         }
 
         //eigor.converter.fatturapa-cen.mapping.many-to-one=classpath:converterdata/converter-xmlcen-cen/mappings/many_to_one.properties
@@ -88,7 +88,7 @@ public class XmlCen2CenTest {
             FileUtils.copyInputStreamToFile(
                     XmlCen2CenTest.class.getResourceAsStream("/converterdata/converter-xmlcen-cen/mappings/many_to_one.properties"),
                     file);
-            properties.put("eigor.converter.xmlcen-cen.mapping.many-to-one", "file:///" + file.getAbsolutePath());
+            properties.put("eigor.converter.xmlcen-cen.mapping.many-to-one", "file:" + file.getAbsolutePath());
         }
 
     }

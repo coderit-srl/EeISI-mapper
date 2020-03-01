@@ -15,7 +15,7 @@ import it.infocert.eigor.fattpa.commons.models.*;
 import it.infocert.eigor.model.core.datatypes.Identifier;
 import it.infocert.eigor.model.core.enums.Iso31661CountryCodes;
 import it.infocert.eigor.model.core.model.*;
-import it.infocert.eigor.org.springframework.util.CollectionUtils;
+import org.springframework.util.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

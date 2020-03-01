@@ -4,6 +4,7 @@ import it.infocert.eigor.api.ConversionResult;
 import it.infocert.eigor.api.EigorException;
 import it.infocert.eigor.api.conversion.ConversionCallback;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.core.io.Resource;
 
 import java.io.File;
 import java.io.InputStream;
@@ -122,7 +123,7 @@ public interface EigorApi {
      * @return The result containing the validation issues, if any.
      * @throws EigorException When an unexpected error occurs.
      */
-    ConversionResult<Void> customSchSchematronValidation(@NotNull File schemaFile, @NotNull InputStream xmlToValidate) throws EigorException;
+    ConversionResult<Void> customSchSchematronValidation(@NotNull Resource schemaFile, @NotNull InputStream xmlToValidate) throws EigorException;
 
     /**
      * Validate the provided xml with the provided XSD.
@@ -132,7 +133,7 @@ public interface EigorApi {
      * @return The result containing the validation issues, if any.
      * @throws EigorException When an unexpected error occurs.
      */
-    ConversionResult<Void> customXsdValidation(@NotNull File schemaFile, @NotNull InputStream xmlToValidate) throws EigorException;
+    ConversionResult<Void> customXsdValidation(@NotNull Resource schemaFile, @NotNull InputStream xmlToValidate) throws EigorException;
 
     /**
      * Return all the supported invoice source formats.

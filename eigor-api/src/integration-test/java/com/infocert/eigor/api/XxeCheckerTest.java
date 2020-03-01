@@ -4,6 +4,7 @@ import it.infocert.eigor.api.ConversionResult;
 import it.infocert.eigor.api.EigorException;
 import it.infocert.eigor.api.configuration.ConfigurationException;
 import org.junit.Test;
+import org.springframework.core.io.FileSystemResource;
 import utils.XxeChecker;
 
 import java.io.File;
@@ -82,7 +83,7 @@ public class XxeCheckerTest {
         EigorApi eigorApi = eigorApiBuilder.build();
 
         InputStream inputFatturaPaXmlKo = invoiceAsStream("/issues/fattpa_with_xxe.xml");
-        ConversionResult<Void> convert = eigorApi.customSchSchematronValidation(new File("fake_file.fake"), inputFatturaPaXmlKo);
+        ConversionResult<Void> convert = eigorApi.customSchSchematronValidation(new FileSystemResource("fake_file.fake"), inputFatturaPaXmlKo);
         assertTrue(convert.getIssues().size() > 0);
         assertNotNull(convert.getIssues().get(0).getErrorMessage());
         assertNotNull(convert.getIssues().get(0).getErrorMessage().getMessage());
@@ -95,7 +96,7 @@ public class XxeCheckerTest {
         EigorApi eigorApi = eigorApiBuilder.build();
 
         InputStream inputFatturaPaXmlKo = invoiceAsStream("/issues/fattpa_with_xxe.xml");
-        ConversionResult<Void> convert = eigorApi.customXsdValidation(new File("fake_file.fake"), inputFatturaPaXmlKo);
+        ConversionResult<Void> convert = eigorApi.customXsdValidation(new FileSystemResource("fake_file.fake"), inputFatturaPaXmlKo);
         assertTrue(convert.getIssues().size() > 0);
         assertNotNull(convert.getIssues().get(0).getErrorMessage());
         assertNotNull(convert.getIssues().get(0).getErrorMessage().getMessage());

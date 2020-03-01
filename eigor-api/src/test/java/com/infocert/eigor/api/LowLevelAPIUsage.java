@@ -14,6 +14,7 @@ import it.infocert.eigor.converter.cen2fattpa.Cen2FattPA;
 import it.infocert.eigor.converter.cii2cen.Cii2Cen;
 import it.infocert.eigor.converter.ubl2cen.Ubl2Cen;
 import org.apache.commons.io.FileUtils;
+import org.assertj.core.util.Lists;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

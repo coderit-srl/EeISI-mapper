@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -59,7 +60,7 @@ public class HiLevelAPIUsage {
                 .build();
 
         ConversionResult<Void> failedValidation = api.customSchSchematronValidation(
-                new File(getClass().getResource("/dogs/dogs.sch").getFile()),
+                new ClassPathResource("/dogs/dogs.sch"),
                 getClass().getResourceAsStream("/dogs/dogs.xml")
         );
 
@@ -75,7 +76,7 @@ public class HiLevelAPIUsage {
                 .build();
 
         ConversionResult<Void> failedValidation = api.customXsdValidation(
-                new File(getClass().getResource("/dogs/dogs.xsd").getFile()),
+                new ClassPathResource("/dogs/dogs.xsd"),
                 getClass().getResourceAsStream("/dogs/dogs.xml")
         );
 

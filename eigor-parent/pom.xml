@@ -4,10 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
+
+    <parent>
     <groupId>it.infocert.eigor</groupId>
+        <artifactId>eigor</artifactId>
+        <version>5.0.0-SNAPSHOT</version>
+        <relativePath>../</relativePath>
+    </parent>
+
     <artifactId>eigor-parent</artifactId>
     <packaging>pom</packaging>
-    <version>4.5.0</version>
+    <version>5.0.0-SNAPSHOT</version>
     <name>Eigor :: Parent (${project.artifactId})</name>
     <description>Electronic Invoice GO Regional</description>
     <organization>
@@ -26,32 +33,29 @@
         <java.version>1.8</java.version>
 
         <!-- dependencies -->
-        <powermock.version>1.6.6</powermock.version>
+        <powermock.version>2.0.2</powermock.version>
         <juel-api.version>2.2.7</juel-api.version>
-        <joda-time.version>2.9.9</joda-time.version>
         <commons-csv.version>1.4</commons-csv.version>
-        <logback.version>1.2.3</logback.version>
-        <slf4j-api.version>1.7.25</slf4j-api.version>
         <commons-io.version>1.3.2</commons-io.version>
         <guava.version>20.0</guava.version>
         <jopt-simple.version>5.0.3</jopt-simple.version>
-        <pitest-maven.version>1.1.11</pitest-maven.version>
         <commons-compress.version>1.9</commons-compress.version>
         <phschematron.version>5.0.6</phschematron.version>
         <plexus-utils.version>3.0.24</plexus-utils.version>
         <jdom.version>2.0.6</jdom.version>
-        <jaxen.version>1.1.6</jaxen.version>
         <commons-io.version>2.5</commons-io.version>
-        <junit.version>4.12</junit.version>
         <reflections.version>0.9.11</reflections.version>
         <jetbrains-annotations.version>13.0</jetbrains-annotations.version>
 
         <!-- plugins -->
-        <maven-failsafe-plugin.version>2.20</maven-failsafe-plugin.version>
-        <maven-surefire-plugin.version>2.20</maven-surefire-plugin.version>
+        <pitest-maven.version>1.4.10</pitest-maven.version>
+        <maven-failsafe-plugin.version>3.0.0-M3</maven-failsafe-plugin.version>
+        <maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
         <template-generator-maven-plugin.version>0.0.7</template-generator-maven-plugin.version>
         <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
         <maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
     </properties>
 
     <distributionManagement>
@@ -62,13 +66,13 @@
         </site>
         <repository>
             <id>central</id>
-            <name>infocert.linvoice.release</name>
-            <url>https://integrazione.mgmt.infocert.it/artifactory/linvoice-release-local</url>
+            <name>repo-artifactory-0-releases</name>
+            <url>${env.MAVEN_REPO_URL}/libs-release-local</url>
         </repository>
         <snapshotRepository>
             <id>snapshots</id>
-            <name>infocert.linvoice.snapshot</name>
-            <url>https://integrazione.mgmt.infocert.it/artifactory/linvoice-snapshot-local</url>
+            <name><repo-artifactory-0-snapshots></repo-artifactory-0-snapshots></name>
+            <url>${env.MAVEN_REPO_URL}/libs-release-local</url>
         </snapshotRepository>
     </distributionManagement>
 
@@ -122,23 +126,6 @@
                 <version>${phschematron.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>${slf4j-api.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
-                <version>${logback.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-csv</artifactId>
                 <version>${commons-csv.version}</version>
@@ -147,26 +134,6 @@
                 <groupId>org.jdom</groupId>
                 <artifactId>jdom2</artifactId>
                 <version>${jdom.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>jaxen</groupId>
-                <artifactId>jaxen</artifactId>
-                <version>${jaxen.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>${junit.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>joda-time</groupId>
-                <artifactId>joda-time</artifactId>
-                <version>${joda-time.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-simple</artifactId>
-                <version>${slf4j-api.version}</version>
             </dependency>
 
             <!-- JUEL -->
@@ -324,7 +291,7 @@
 
             <dependency>
                 <groupId>org.powermock</groupId>
-                <artifactId>powermock-api-mockito</artifactId>
+                <artifactId>powermock-api-mockito2</artifactId>
                 <version>${powermock.version}</version>
                 <scope>test</scope>
             </dependency>
@@ -338,18 +305,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>1.5.2.RELEASE</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>${logback.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
         <dependency>
             <groupId>com.google.code.findbugs</groupId>
@@ -365,7 +325,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.0.1</version>
+                    <version>${maven-source-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>attach-sources</id>
@@ -475,7 +435,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.6.1</version>
+                    <version>${maven-compiler-plugin.version}</version>
                     <configuration>
                         <source>${java.version}</source>
                         <target>${java.version}</target>

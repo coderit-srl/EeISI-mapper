@@ -2,7 +2,7 @@ package it.infocert.eigor.converter.ubl2cen;
 
 import it.infocert.eigor.api.IConversionIssue;
 import it.infocert.eigor.api.errors.ErrorCode;
-import it.infocert.eigor.api.xml.PlainXSDValidator;
+import it.infocert.eigor.api.xml.FileXSDValidator;
 import it.infocert.eigor.api.xml.XSDValidator;
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
@@ -21,7 +21,7 @@ public class StaticXsdTest {
 
     @Before
     public void setUp() throws SAXException {
-        sut = new PlainXSDValidator(FileUtils.getFile("../converter-commons/src/main/resources/converterdata/converter-commons/ubl/xsdstatic/UBL-Invoice-2.1.xsd"),
+        sut = new FileXSDValidator(FileUtils.getFile("../converter-commons/src/main/resources/converterdata/converter-commons/ubl/xsdstatic/UBL-Invoice-2.1.xsd"),
                 ErrorCode.Location.UBL_IN);
     }
 

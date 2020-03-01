@@ -7,6 +7,7 @@ import it.infocert.eigor.api.IConversionIssue;
 import it.infocert.eigor.api.configuration.EigorConfiguration;
 import it.infocert.eigor.api.conversion.DebugConversionCallback;
 import it.infocert.eigor.api.conversion.DumpIntermediateCenInvoiceAsCsvCallback;
+import it.infocert.eigor.api.conversion.LoggingCallback;
 import it.infocert.eigor.cli.CliCommand;
 import it.infocert.eigor.converter.cen2xmlcen.CenToXmlCenConverter;
 import it.infocert.eigor.converter.cen2xmlcen.DumpIntermediateCenInvoiceAsCenXmlCallback;
@@ -173,6 +174,7 @@ public class ConversionCommand implements CliCommand {
                 conversionPreferences,
                 new ConsoleOutputConversionCallback(this, out),
                 new DebugConversionCallback(outputFolderFile),
+                new LoggingCallback(outputFolderFile),
                 new DumpIntermediateCenInvoiceAsCsvCallback(outputFolderFile),
                 new DumpIntermediateCenInvoiceAsCenXmlCallback(outputFolderFile, new CenToXmlCenConverter(configuration), false));
 

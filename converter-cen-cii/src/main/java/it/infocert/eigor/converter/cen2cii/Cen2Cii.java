@@ -14,14 +14,13 @@ import it.infocert.eigor.api.xml.ClasspathXSDValidator;
 import it.infocert.eigor.api.xml.XSDValidator;
 import it.infocert.eigor.model.core.enums.Iso4217CurrenciesFundsCodes;
 import it.infocert.eigor.model.core.model.BG0000Invoice;
-import it.infocert.eigor.org.springframework.core.io.DefaultResourceLoader;
-import it.infocert.eigor.org.springframework.core.io.FileSystemResource;
-import it.infocert.eigor.org.springframework.core.io.Resource;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
 
 import java.util.*;
 
@@ -87,7 +86,7 @@ public class Cen2Cii extends AbstractFromCenConverter {
         try {
             Resource ublSchemaFile = drl.getResource(this.configuration.getMandatoryString("eigor.converter.cen-cii.schematron"));
             boolean schematronAutoUpdate = "true".equals(this.configuration.getMandatoryString("eigor.converter.cen-cii.schematron.auto-update-xslt"));
-            ublValidator = new SchematronValidator(new FileSystemResource(ublSchemaFile.getFile()), true, schematronAutoUpdate, ErrorCode.Location.CII_OUT);
+            ublValidator = new SchematronValidator(ublSchemaFile, true, schematronAutoUpdate, ErrorCode.Location.CII_OUT);
         } catch (Exception e) {
             throw new ConfigurationException("An error occurred while loading configuring " + this + ".", e);
         }

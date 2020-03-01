@@ -5,8 +5,6 @@ import it.infocert.eigor.api.configuration.EigorConfiguration;
 import it.infocert.eigor.api.errors.ErrorCode;
 import it.infocert.eigor.api.errors.ErrorMessage;
 import it.infocert.eigor.model.core.datatypes.FileReference;
-import it.infocert.eigor.org.springframework.core.io.DefaultResourceLoader;
-import it.infocert.eigor.org.springframework.core.io.Resource;
 import org.apache.commons.io.FileUtils;
 import org.jdom2.Element;
 import org.slf4j.Logger;
@@ -25,28 +23,17 @@ public class AttachmentToFileReferenceConverter implements TypeConverter<Element
     private final ErrorCode.Location callingLocation;
     private final String mimeAttribute;
 
-    public static TypeConverter<Element, FileReference> newConverter(EigorConfiguration eigorConfiguration, ErrorCode.Location callingLocation, String mimeAttribute){
+    public static TypeConverter<Element, FileReference> newConverter(EigorConfiguration eigorConfiguration, ErrorCode.Location callingLocation, String mimeAttribute) {
         return new AttachmentToFileReferenceConverter(eigorConfiguration, callingLocation, mimeAttribute);
     }
 
-    public static TypeConverter<Element, FileReference> newConverter(EigorConfiguration eigorConfiguration, ErrorCode.Location callingLocation){
+    public static TypeConverter<Element, FileReference> newConverter(EigorConfiguration eigorConfiguration, ErrorCode.Location callingLocation) {
         return new AttachmentToFileReferenceConverter(eigorConfiguration, callingLocation, "mimeCode");
     }
 
     private AttachmentToFileReferenceConverter(EigorConfiguration eigorConfiguration, ErrorCode.Location callingLocation, String mimeAttribute) {
         this.callingLocation = callingLocation;
-        File workdir;
-        String workdirS = eigorConfiguration.getMandatoryString("eigor.workdir");
-        try {
-            DefaultResourceLoader drl = new DefaultResourceLoader();
-            Resource resource = drl.getResource(workdirS);
-            workdir = resource.getFile();
-        } catch (IOException e) {
-            log.error(e.getMessage(), e);
-            workdir = null;
-        }
-
-        this.workdir = workdir;
+        this.workdir = eigorConfiguration.getMandatoryFile("eigor.workdir");
         this.mimeAttribute = mimeAttribute;
     }
 
@@ -57,7 +44,7 @@ public class AttachmentToFileReferenceConverter implements TypeConverter<Element
         String filename = element.getAttributeValue("filename");
 
         if (mimeCode == null || filename == null) {
-            throw new EigorRuntimeException(ErrorMessage.builder().message(String.format("Attribute %s is missing", mimeCode == null? "mimeCode": "filename"))
+            throw new EigorRuntimeException(ErrorMessage.builder().message(String.format("Attribute %s is missing", mimeCode == null ? "mimeCode" : "filename"))
                     .location(callingLocation)
                     .action(ErrorCode.Action.HARDCODED_MAP)
                     .error(ErrorCode.Error.ILLEGAL_VALUE)
@@ -88,11 +75,11 @@ public class AttachmentToFileReferenceConverter implements TypeConverter<Element
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
     private String createTempFile(String filename, String content) throws IOException {
-        File dest = new File(workdir + "/tmp");
+        File dest = new File(workdir, "tmp");
         if (!dest.exists()) {
             dest.mkdirs();
         }
-        File tempFile = new File(String.format("%s%s%s%s.tmp", dest.getAbsolutePath(), File.separator, filename,  UUID.randomUUID()));
+        File tempFile = new File(dest, String.format("%s%s.tmp", filename, UUID.randomUUID()));
         FileUtils.writeStringToFile(tempFile, content, StandardCharsets.UTF_8);
         log.debug("Stored temporary attachment at {}", tempFile.getAbsolutePath());
         return tempFile.getAbsolutePath();

@@ -8,13 +8,13 @@ import it.infocert.eigor.api.configuration.EigorConfiguration;
 import it.infocert.eigor.api.errors.ErrorCode;
 import it.infocert.eigor.api.utils.IReflections;
 import it.infocert.eigor.api.utils.JavaReflections;
-import it.infocert.eigor.api.xml.PlainXSDValidator;
+import it.infocert.eigor.api.xml.FileXSDValidator;
 import it.infocert.eigor.api.xml.XSDValidator;
 import it.infocert.eigor.model.core.InvoiceUtils;
 import it.infocert.eigor.model.core.datatypes.Identifier;
 import it.infocert.eigor.model.core.enums.Iso4217CurrenciesFundsCodes;
 import it.infocert.eigor.model.core.model.*;
-import it.infocert.eigor.org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.FileSystemResource;
 import org.apache.commons.io.FileUtils;
 import org.hamcrest.CoreMatchers;
 import org.jdom2.Document;
@@ -309,7 +309,7 @@ public class Cii2CenConfigurationFileTest {
         byte[] bytes = ByteStreams.toByteArray(sourceInvoiceStream);
         String filePath = "../converter-commons/src/main/resources/converterdata/converter-commons/cii/xsd/uncoupled/data/standard/CrossIndustryInvoice_100pD16B.xsd";
         File xsdFile = new File(filePath);
-        XSDValidator xsdValidator = new PlainXSDValidator(xsdFile, ErrorCode.Location.CII_IN);
+        XSDValidator xsdValidator = new FileXSDValidator(xsdFile, ErrorCode.Location.CII_IN);
         return xsdValidator.validate(bytes);
     }
 

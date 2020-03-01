@@ -17,9 +17,13 @@ import org.jdom2.xpath.XPathExpression;
 import org.jdom2.xpath.XPathFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
 
 import javax.xml.bind.DatatypeConverter;
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 public class FieldLengthEnforcer {
@@ -28,7 +32,7 @@ public class FieldLengthEnforcer {
     private final Map<String, Integer> lengthsMap;
     private final ErrorCode.Location callingLocation;
 
-    public FieldLengthEnforcer(File file, ErrorCode.Location callingLocation) {
+    public FieldLengthEnforcer(Resource file, ErrorCode.Location callingLocation) {
         this.lengthsMap = loadFieldLengthsMap(file);
         this.callingLocation = callingLocation;
     }
@@ -136,13 +140,13 @@ public class FieldLengthEnforcer {
         return doc;
     }
 
-    private Map<String, Integer> loadFieldLengthsMap(File file) {
+    private Map<String, Integer> loadFieldLengthsMap(Resource file) {
         TreeMap<String, Integer> map = new TreeMap<>();
         Properties properties = new Properties();
         try {
-            FileInputStream fileInputStream = null;
+            InputStream fileInputStream = null;
             try {
-                fileInputStream = new FileInputStream(file);
+                fileInputStream = file.getInputStream();
                 properties.load(fileInputStream);
                 for (String key : properties.stringPropertyNames()) {
                     String property = properties.getProperty(key);

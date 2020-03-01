@@ -4,8 +4,8 @@ import com.google.common.collect.Multimap;
 import it.infocert.eigor.api.errors.ErrorCode;
 import it.infocert.eigor.api.mapping.toCen.InvoiceCenXpathMappingValidator;
 import it.infocert.eigor.api.utils.JavaReflections;
-import it.infocert.eigor.org.springframework.core.io.DefaultResourceLoader;
-import it.infocert.eigor.org.springframework.core.io.Resource;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.Resource;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -63,7 +63,7 @@ public class CustomMappingLoaderTest {
 
     private EigorConfiguration createConfiguration(String configFile) {
         return new PropertiesBackedConfiguration()
-                .addProperty("eigor.workdir", "classpath:")
+                .addProperty("eigor.workdir", "file:${prop.java.io.tmpdir}eigor")
                 .addProperty("eigor.converter.test.mapping.one-to-one", "classpath:test-mapping.properties")
                 .addProperty("eigor.converter.test.mapping.many-to-one", "classpath:test-mapping.properties")
                 .addProperty("eigor.converter.test.mapping.one-to-many", "classpath:test-mapping.properties")

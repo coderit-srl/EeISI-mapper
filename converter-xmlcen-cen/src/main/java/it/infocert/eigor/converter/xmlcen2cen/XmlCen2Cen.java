@@ -21,7 +21,7 @@ import it.infocert.eigor.model.core.datatypes.Identifier;
 import it.infocert.eigor.model.core.enums.*;
 import it.infocert.eigor.model.core.model.BG0000Invoice;
 import it.infocert.eigor.model.core.model.BTBG;
-import it.infocert.eigor.org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.DefaultResourceLoader;
 import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;

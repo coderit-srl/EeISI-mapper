@@ -15,9 +15,9 @@ import it.infocert.eigor.api.xml.XSDValidator;
 import it.infocert.eigor.converter.commons.cen2ubl.XmlNamespaceApplier;
 import it.infocert.eigor.model.core.enums.Iso4217CurrenciesFundsCodes;
 import it.infocert.eigor.model.core.model.BG0000Invoice;
-import it.infocert.eigor.org.springframework.core.io.DefaultResourceLoader;
-import it.infocert.eigor.org.springframework.core.io.FileSystemResource;
-import it.infocert.eigor.org.springframework.core.io.Resource;
+import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
@@ -77,7 +77,7 @@ public class Cen2UblCn extends AbstractFromCenConverter {
         try {
             Resource ublSchemaFile = drl.getResource(this.configuration.getMandatoryString("eigor.converter.cen-ublcn.schematron"));
             boolean schematronAutoUpdate = "true".equals(this.configuration.getMandatoryString("eigor.converter.cen-ublcn.schematron.auto-update-xslt"));
-            ublValidator = new SchematronValidator(new FileSystemResource(ublSchemaFile.getFile()), true, schematronAutoUpdate, ErrorCode.Location.UBLCN_OUT);
+            ublValidator = new SchematronValidator(ublSchemaFile, true, schematronAutoUpdate, ErrorCode.Location.UBLCN_OUT);
         } catch (Exception e) {
             throw new ConfigurationException("An error occurred while loading configuring " + this + ".", e);
         }

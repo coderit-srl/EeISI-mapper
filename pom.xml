@@ -3,14 +3,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.2.RELEASE</version>
+        <version>2.1.8.RELEASE</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>it.infocert.eigor</groupId>
     <artifactId>eigor</artifactId>
     <packaging>pom</packaging>
-    <version>4.5.0</version>
+    <version>5.0.0-SNAPSHOT</version>
     <name>Eigor :: Aggregator</name>
     <description>Electronic Invoice GO Regional</description>
     <organization>
@@ -32,7 +32,6 @@
         <module>eigor-test</module>
         <module>eigor-core</module>
         <module>eigor-api</module>
-        <module>eigor-spring-core</module>
         <module>eigor-test-schemas</module>
         <module>converter-fattpa-commons</module>
         <module>eigor-configurations</module>

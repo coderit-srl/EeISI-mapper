@@ -20,7 +20,7 @@ import it.infocert.eigor.converter.fattpa2cen.converters.ItalianCodeStringToUntd
 import it.infocert.eigor.model.core.enums.Iso31661CountryCodes;
 import it.infocert.eigor.model.core.enums.Iso4217CurrenciesFundsCodes;
 import it.infocert.eigor.model.core.model.*;
-import it.infocert.eigor.org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.DefaultResourceLoader;
 import org.jdom2.Document;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;

@@ -11,7 +11,7 @@ import it.infocert.eigor.api.configuration.PropertiesBackedConfiguration;
 import it.infocert.eigor.api.errors.ErrorCode;
 import it.infocert.eigor.api.utils.IReflections;
 import it.infocert.eigor.api.utils.JavaReflections;
-import it.infocert.eigor.api.xml.PlainXSDValidator;
+import it.infocert.eigor.api.xml.FileXSDValidator;
 import it.infocert.eigor.api.xml.XSDValidator;
 import it.infocert.eigor.converter.commons.ubl2cen.InvoiceNoteConverter;
 import it.infocert.eigor.model.core.model.BG0000Invoice;
@@ -46,7 +46,7 @@ public class UblCn2CenConfigurationFileTest {
     @BeforeClass
     public static void setUp() throws ConfigurationException {
         EigorConfiguration conf = new PropertiesBackedConfiguration()
-                .addProperty("eigor.workdir", "classpath:")
+                .addProperty("eigor.workdir", "file:${prop.java.io.tmpdir}eigor")
                 .addProperty("eigor.converter.ublcn-cen.mapping.one-to-one", "converterdata/converter-ublcn-cen/mappings/one_to_one.properties")
                 .addProperty("eigor.converter.ublcn-cen.mapping.many-to-one", "converterdata/converter-ublcn-cen/mappings/many_to_one.properties")
                 .addProperty("eigor.converter.ublcn-cen.mapping.one-to-many", "converterdata/converter-ublcn-cen/mappings/one_to_many.properties")
@@ -63,7 +63,7 @@ public class UblCn2CenConfigurationFileTest {
     @BeforeClass
     public static void setUpValidator() throws SAXException {
         File xsdFile = FileUtils.getFile("../converter-commons/src/main/resources/converterdata/converter-commons/ublcn/xsdstatic/UBL-CreditNote-2.1.xsd");
-        xsdValidator = new PlainXSDValidator(xsdFile, ErrorCode.Location.UBLCN_IN);
+        xsdValidator = new FileXSDValidator(xsdFile, ErrorCode.Location.UBLCN_IN);
     }
 
     @Test

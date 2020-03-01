@@ -1,7 +1,7 @@
 package it.infocert.eigor.api;
 
 import it.infocert.eigor.api.errors.ErrorCode;
-import it.infocert.eigor.org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.FileSystemResource;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;

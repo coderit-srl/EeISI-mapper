@@ -5,7 +5,7 @@ import it.infocert.eigor.api.IConversionIssue;
 import it.infocert.eigor.api.configuration.EigorConfiguration;
 import it.infocert.eigor.api.errors.ErrorCode;
 import it.infocert.eigor.model.core.model.BG0000Invoice;
-import it.infocert.eigor.org.springframework.util.StringUtils;
+import org.springframework.util.StringUtils;
 import org.jdom2.Document;
 import org.jdom2.Element;
 

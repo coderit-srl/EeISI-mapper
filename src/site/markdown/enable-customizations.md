@@ -79,7 +79,7 @@ This is enough to have _eEisi_ to read that file, because it is read from the cl
 
 Write the following content in the `eigor.properties` file:
 
-    eigor.workdir=${prop.java.io.tmpdir}eigor
+    eigor.workdir=file:${prop.java.io.tmpdir}eigor
     eigor.validation-home=C:/tmp/eeisi/converterdata
             
     eigor.converter.cen-cii.mapping.one-to-one=classpath:converterdata/converter-cen-cii/mappings/one_to_one.properties

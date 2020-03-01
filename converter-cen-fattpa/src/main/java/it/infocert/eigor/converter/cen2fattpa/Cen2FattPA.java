@@ -16,7 +16,7 @@ import it.infocert.eigor.converter.cen2fattpa.converters.*;
 import it.infocert.eigor.fattpa.commons.models.*;
 import it.infocert.eigor.model.core.enums.*;
 import it.infocert.eigor.model.core.model.BG0000Invoice;
-import it.infocert.eigor.org.springframework.core.io.Resource;
+import org.springframework.core.io.Resource;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.Namespace;
@@ -87,7 +87,7 @@ public class Cen2FattPA extends AbstractFromCenConverter {
         Resource fieldLengthsFile = getResourceLoader().getResource(pathOfFieldLengths);
 
         try {
-            fieldLengthEnforcer = new FieldLengthEnforcer(fieldLengthsFile.getFile(), ErrorCode.Location.FATTPA_OUT);
+            fieldLengthEnforcer = new FieldLengthEnforcer(fieldLengthsFile, ErrorCode.Location.FATTPA_OUT);
         } catch (Exception e) {
             throw new ConfigurationException("An error occurred while configuring '" + this + "'.", e);
         }

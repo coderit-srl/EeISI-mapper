@@ -1,7 +1,7 @@
 package it.infocert.eigor.api;
 
 import it.infocert.eigor.api.errors.ErrorCode;
-import it.infocert.eigor.org.springframework.core.io.Resource;
+import org.springframework.core.io.Resource;
 
 public class CiusSchematronValidator extends SchematronValidator {
 

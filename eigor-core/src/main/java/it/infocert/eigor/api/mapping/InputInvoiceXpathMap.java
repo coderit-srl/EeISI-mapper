@@ -3,7 +3,7 @@ package it.infocert.eigor.api.mapping;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import it.infocert.eigor.api.SyntaxErrorInMappingFileException;
-import it.infocert.eigor.org.springframework.core.io.Resource;
+import org.springframework.core.io.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

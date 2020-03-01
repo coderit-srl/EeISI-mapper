@@ -5,14 +5,15 @@ import it.infocert.eigor.api.*;
 import it.infocert.eigor.api.conversion.*;
 import it.infocert.eigor.api.errors.ErrorCode;
 import it.infocert.eigor.api.utils.EigorVersion;
-import it.infocert.eigor.api.xml.PlainXSDValidator;
+import it.infocert.eigor.api.xml.FileXSDValidator;
+import it.infocert.eigor.api.xml.SpringResourceXSDValidatorFactory;
 import it.infocert.eigor.api.xml.XSDValidator;
 import it.infocert.eigor.converter.cen2xmlcen.DumpIntermediateCenInvoiceAsCenXmlCallback;
-import it.infocert.eigor.org.springframework.core.io.FileSystemResource;
 import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.Resource;
 import org.xml.sax.SAXException;
 import utils.XxeChecker;
 
@@ -171,7 +172,7 @@ public class EigorApiImpl implements EigorApi {
     }
 
     @Override
-    public ConversionResult<Void> customSchSchematronValidation(@NotNull File schemaFile, @NotNull InputStream xmlToValidate) throws EigorException {
+    public ConversionResult<Void> customSchSchematronValidation(@NotNull Resource schemaResource, @NotNull InputStream xmlToValidate) throws EigorException {
         String invoiceString = null;
         try {
             invoiceString = getStringFromInputStream(xmlToValidate);
@@ -181,13 +182,12 @@ public class EigorApiImpl implements EigorApi {
         } catch (IOException e) {
             log.warn("Can't read invoice");
         }
-        checkNotNull(schemaFile, "Please provide a not null schematron file.");
-        checkArgument(schemaFile != null && schemaFile.isFile() && schemaFile.canRead(), "File '%s' must be a readable file, is not.", schemaFile.getAbsolutePath());
+        checkNotNull(schemaResource, "Please provide a not null schematron resource.");
         checkNotNull(xmlToValidate);
 
         ErrorCode.Location location = ErrorCode.Location.CUSTOM_VALIDATORS;
         try {
-            SchematronValidator schematronValidator = new SchematronValidator(new FileSystemResource(schemaFile), false, false, location);
+            SchematronValidator schematronValidator = new SchematronValidator(schemaResource, false, false, location);
             List<IConversionIssue> issues = schematronValidator.validate(IOUtils.toByteArray(xmlToValidate));
             return new ConversionResult<>(issues, null);
         } catch (IOException e) {
@@ -196,7 +196,7 @@ public class EigorApiImpl implements EigorApi {
     }
 
     @Override
-    public ConversionResult<Void> customXsdValidation(@NotNull File schemaFile, @NotNull InputStream xmlToValidate) throws EigorException {
+    public ConversionResult<Void> customXsdValidation(@NotNull Resource schemaFile, @NotNull InputStream xmlToValidate) throws EigorException {
         String invoiceString = null;
         try {
             invoiceString = getStringFromInputStream(xmlToValidate);
@@ -207,15 +207,14 @@ public class EigorApiImpl implements EigorApi {
             log.warn("Can't read invoice");
         }
         checkNotNull(schemaFile, "Please provide a not null xsd file.");
-        checkArgument(schemaFile != null && schemaFile.isFile() && schemaFile.canRead(), "File '%s' must be a readable file, is not.", schemaFile.getAbsolutePath());
         checkNotNull(xmlToValidate);
 
         ErrorCode.Location customValidators = ErrorCode.Location.CUSTOM_VALIDATORS;
         try {
-            XSDValidator v = new PlainXSDValidator(schemaFile, customValidators);
+            XSDValidator v = SpringResourceXSDValidatorFactory.getValidator(schemaFile, customValidators);
             List<IConversionIssue> validate = v.validate(IOUtils.toByteArray(xmlToValidate));
             return new ConversionResult<>(validate, null);
-        } catch (SAXException | IOException e) {
+        } catch (Exception e) {
             throw new EigorException(e.getMessage(), customValidators, ErrorCode.Action.CUSTOM_VALIDATION, ErrorCode.Error.INVALID);
         }
 

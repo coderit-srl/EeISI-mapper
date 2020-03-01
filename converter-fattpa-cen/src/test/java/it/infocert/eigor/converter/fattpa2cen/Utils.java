@@ -19,7 +19,7 @@ public class Utils {
             FileUtils.copyInputStreamToFile(
                     IssuesTest.class.getResourceAsStream("/converterdata/converter-commons/fattpa/xsdstatic/Schema_del_file_xml_FatturaPA_versione_1.2.xsd"),
                     xsdFile);
-            properties.put("eigor.converter.fatturapa-cen.xsd", "file:///" + xsdFile.getAbsolutePath());
+            properties.put("eigor.converter.fatturapa-cen.xsd", "file:" + xsdFile.getAbsolutePath());
 
             File xsdFile2 = new File(fattpaCenFolder, "imported");
             xsdFile2.mkdirs();
@@ -36,7 +36,7 @@ public class Utils {
             FileUtils.copyInputStreamToFile(
                     IssuesTest.class.getResourceAsStream("/converterdata/converter-fattpa-cen/mappings/one_to_one.properties"),
                     file);
-            properties.put("eigor.converter.fatturapa-cen.mapping.one-to-one", "file:///" + file.getAbsolutePath());
+            properties.put("eigor.converter.fatturapa-cen.mapping.one-to-one", "file:" + file.getAbsolutePath());
         }
 
         //eigor.converter.fatturapa-cen.mapping.custom=classpath:converterdata/converter-fattpa-cen/mappings/custom.conf
@@ -45,7 +45,7 @@ public class Utils {
             FileUtils.copyInputStreamToFile(
                     IssuesTest.class.getResourceAsStream("/converterdata/converter-fattpa-cen/mappings/custom.conf"),
                     file);
-            properties.put("eigor.converter.fatturapa-cen.mapping.custom", "file:///" + file.getAbsolutePath());
+            properties.put("eigor.converter.fatturapa-cen.mapping.custom", "file:" + file.getAbsolutePath());
         }
 
         //eigor.converter.fatturapa-cen.mapping.one-to-many=classpath:converterdata/converter-fattpa-cen/mappings/one_to_many.properties
@@ -54,7 +54,7 @@ public class Utils {
             FileUtils.copyInputStreamToFile(
                     IssuesTest.class.getResourceAsStream("/converterdata/converter-fattpa-cen/mappings/one_to_many.properties"),
                     file);
-            properties.put("eigor.converter.fatturapa-cen.mapping.one-to-many", "file:///" + file.getAbsolutePath());
+            properties.put("eigor.converter.fatturapa-cen.mapping.one-to-many", "file:" + file.getAbsolutePath());
         }
 
         //eigor.converter.fatturapa-cen.mapping.many-to-one=classpath:converterdata/converter-fattpa-cen/mappings/many_to_one.properties
@@ -63,10 +63,10 @@ public class Utils {
             FileUtils.copyInputStreamToFile(
                     IssuesTest.class.getResourceAsStream("/converterdata/converter-fattpa-cen/mappings/many_to_one.properties"),
                     file);
-            properties.put("eigor.converter.fatturapa-cen.mapping.many-to-one", "file:///" + file.getAbsolutePath());
+            properties.put("eigor.converter.fatturapa-cen.mapping.many-to-one", "file:" + file.getAbsolutePath());
         }
 
-        properties.put("eigor.workdir", eigorWorkDir.getAbsolutePath());
+        properties.put("eigor.workdir", "file:" + eigorWorkDir.getAbsolutePath());
 
         EigorConfiguration propertiesBackedConfiguration = new PropertiesBackedConfiguration(properties);
 

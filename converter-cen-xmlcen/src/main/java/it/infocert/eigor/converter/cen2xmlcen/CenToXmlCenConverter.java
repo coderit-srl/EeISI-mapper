@@ -13,7 +13,7 @@ import it.infocert.eigor.model.core.datatypes.Identifier;
 import it.infocert.eigor.model.core.enums.*;
 import it.infocert.eigor.model.core.model.*;
 import it.infocert.eigor.model.core.model.structure.BtBgName;
-import it.infocert.eigor.org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.core.io.DefaultResourceLoader;
 import org.apache.commons.io.IOUtils;
 import org.jdom2.Document;
 import org.jdom2.Element;
