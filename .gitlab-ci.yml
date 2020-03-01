@@ -59,7 +59,7 @@ tests:
 
 eigor-artifacts-snapshot:
   stage: packaging
-  script: ./mvnw $MAVEN_CLI_OPTS install -Prelease
+  script: ./mvnw $MAVEN_CLI_OPTS deploy -Prelease
   only:
     - tags
     - develop
