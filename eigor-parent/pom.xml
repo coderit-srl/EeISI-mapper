@@ -71,7 +71,7 @@
         </repository>
         <snapshotRepository>
             <id>snapshots</id>
-            <name><repo-artifactory-0-snapshots></repo-artifactory-0-snapshots></name>
+            <name>repo-artifactory-0-snapshots</name>
             <url>${env.MAVEN_REPO_URL}/libs-release-local</url>
         </snapshotRepository>
     </distributionManagement>
