@@ -13,10 +13,12 @@
     <version>5.0.0-SNAPSHOT</version>
     <name>Eigor :: Aggregator</name>
     <description>Electronic Invoice GO Regional</description>
+
     <organization>
         <name>Infocert</name>
         <url>https://www.infocert.it/</url>
     </organization>
+
 
     <distributionManagement>
         <site>
@@ -24,7 +26,32 @@
             <name>eigor</name>
             <url>http://infocert.it</url>
         </site>
+        <repository>
+            <id>central</id>
+            <name>repo-artifactory-0-releases</name>
+            <url>${env.MAVEN_REPO_URL}/libs-release-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>repo-artifactory-0-snapshots</name>
+            <url>${env.MAVEN_REPO_URL}/libs-snapshots-local</url>
+        </snapshotRepository>
     </distributionManagement>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central-snapshot</id>
+            <name>Sonatype Snapshot</name>
+            <layout>default</layout>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
 
     <modules>
         <module>eigor-parent</module>

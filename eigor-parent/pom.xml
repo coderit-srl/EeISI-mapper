@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-    <groupId>it.infocert.eigor</groupId>
+        <groupId>it.infocert.eigor</groupId>
         <artifactId>eigor</artifactId>
         <version>5.0.0-SNAPSHOT</version>
         <relativePath>../</relativePath>
@@ -16,11 +16,6 @@
     <packaging>pom</packaging>
     <version>5.0.0-SNAPSHOT</version>
     <name>Eigor :: Parent (${project.artifactId})</name>
-    <description>Electronic Invoice GO Regional</description>
-    <organization>
-        <name>Infocert</name>
-        <url>https://www.infocert.it/</url>
-    </organization>
 
     <properties>
 
@@ -57,39 +52,6 @@
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-source-plugin.version>3.1.0</maven-source-plugin.version>
     </properties>
-
-    <distributionManagement>
-        <site>
-            <id>eigor</id>
-            <name>eigor</name>
-            <url>http://infocert.it</url>
-        </site>
-        <repository>
-            <id>central</id>
-            <name>repo-artifactory-0-releases</name>
-            <url>${env.MAVEN_REPO_URL}/libs-release-local</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>repo-artifactory-0-snapshots</name>
-            <url>${env.MAVEN_REPO_URL}/libs-release-local</url>
-        </snapshotRepository>
-    </distributionManagement>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>central-snapshot</id>
-            <name>Sonatype Snapshot</name>
-            <layout>default</layout>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-        </pluginRepository>
-    </pluginRepositories>
 
     <dependencyManagement>
         <dependencies>
@@ -446,7 +408,6 @@
 
 
         <plugins>
-
             <plugin>
                 <artifactId>maven-source-plugin</artifactId>
             </plugin>
